@@ -8,7 +8,7 @@
   // iterator when the user does not pass one in, this will be handy.
   _.identity = function(val) {
     /* START SOLUTION */
-
+return val;
     /* END SOLUTION */
   };
 
@@ -27,7 +27,18 @@
   // return just the first element.
   _.first = function(array, n) {
     /* START SOLUTION */
-
+    if(n== undefined) return array[0];
+    if(n>array.length)return array;
+    if(array[0]==undefined)return[];
+   let b={a:2};
+   console.log(b[0]);
+    let newArray=[];
+    
+   for( var i=0;i<n;i++)
+   {
+      newArray.push(array[i]);
+   }
+   return newArray;
     /* END SOLUTION */
   };
 
@@ -35,7 +46,15 @@
   // last element.
   _.last = function(array, n) {
     /* START SOLUTION */
-
+    if(n== undefined) return array[array.length-1];
+    if(n>array.length)return array;
+    let newArray=[];
+    
+    for( var i=array.length-n;i<array.length;i++)
+    {
+       newArray.push(array[i]);
+    }
+    return newArray;
     /* END SOLUTION */
   };
 
@@ -45,8 +64,20 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    if(collection[0]!=undefined){
     /* START SOLUTION */
+    collection.map((val)=>{
+      iterator(val,collection.indexOf(val),collection);
+    });
+  }
+  else{
+    let key=Object.keys(collection);
+    let val=Object.values(collection);
+    for(let i=0;i<key.length;i++){
+      iterator(val[i],key[i],collection);
+    }
 
+  }
     /* END SOLUTION */
   };
 
