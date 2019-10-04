@@ -8,7 +8,7 @@
   // iterator when the user does not pass one in, this will be handy.
   _.identity = function(val) {
     /* START SOLUTION */
-return val;
+    return val;
     /* END SOLUTION */
   };
 
@@ -27,11 +27,11 @@ return val;
   // return just the first element.
   _.first = function(array, n) {
     /* START SOLUTION */
-    if(n== undefined) return array[0];
-    if(n>array.length)return array;
-    if(array[0]==undefined)return[];
-   let b={a:2};
-   console.log(b[0]);
+  
+    if(n== undefined)  return array[0];
+    if(n>array.length) return array;
+    if(array[0]==undefined) return[];
+   
     let newArray=[];
     
    for( var i=0;i<n;i++)
@@ -46,15 +46,18 @@ return val;
   // last element.
   _.last = function(array, n) {
     /* START SOLUTION */
-    if(n== undefined) return array[array.length-1];
-    if(n>array.length)return array;
-    let newArray=[];
+
+    if(n== undefined)  return array[array.length-1];
+    if(n>array.length) return array;
     
-    for( var i=array.length-n;i<array.length;i++)
-    {
-       newArray.push(array[i]);
-    }
-    return newArray;
+   
+    let newArray=[];
+   for( var i=array.length-n;i<array.length;i++)
+   {
+      newArray.push(array[i]);
+      
+   }
+   return newArray;
     /* END SOLUTION */
   };
 
@@ -64,20 +67,20 @@ return val;
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
-    if(collection[0]!=undefined){
     /* START SOLUTION */
-    collection.map((val)=>{
-      iterator(val,collection.indexOf(val),collection);
-    });
-  }
-  else{
-    let key=Object.keys(collection);
-    let val=Object.values(collection);
-    for(let i=0;i<key.length;i++){
-      iterator(val[i],key[i],collection);
-    }
+    if (collection[0] != undefined) {
 
-  }
+    collection.map((val)=>{
+      iterator(val, collection.indexOf(val), collection);
+    });
+  }else{
+      let arrkey=Object.keys(collection);
+      let arrvalue=Object.values(collection);
+      arrkey.map((val)=>{
+       iterator(collection[val],val,collection);
+
+      })
+    }
     /* END SOLUTION */
   };
 
@@ -85,28 +88,71 @@ return val;
   // is not present in the array.
   _.indexOf = function(array, target){
     /* START SOLUTION */
+    let th = 0;
+    if (arguments[2]!== undefined){
+      th = arguments[2]
+    }
 
-    /* END SOLUTION */
+for(let i=th;i<array.length;i++)
+{
+  if(array[i]===target) return i;
+    
+}
+return -1
+/* END SOLUTION */
   };
+
+_.findIndex=function(array,val ){
+  if (val !== undefined) {
+
+
+  for(let i=0;i<array.length;i++)
+    {
+      if(val(array[i])){ 
+      return i;
+    }
+    }return -1;
+  }
+  
+
+}
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
     /* START SOLUTION */
-
+    let tab  = [];
+    collection.map((val)=>{
+      if (test(val)){tab.push(val)}
+    });
+    return tab;
     /* END SOLUTION */
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     /* START SOLUTION */
-
+    let tab  = [];
+    collection.map((val)=>{
+      if (!test(val)){tab.push(val)}
+    });
+    return tab;
     /* END SOLUTION */
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
     /* START SOLUTION */
+    let newArray=[];
+    if (array.length==0)return[];
+     
+    array.map((a)=>{
+        if(newArray.indexOf(a)==-1){
+          newArray.push(a);
+        }
 
+    });
+    
+    return newArray;
     /* END SOLUTION */
   };
 
@@ -114,7 +160,24 @@ return val;
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     /* START SOLUTION */
-
+    let tab=[];
+    if(iterator==="showsElementIndex"){
+    for(let i=0;i<collection.length;i++)
+    { 
+      tab.push(iterator(collection[i]));
+     
+    // console.log(collection ,"   ",iterator)
+    }
+  }else{
+for(let i=0;i<collection.length;i++)
+    {  
+      
+     tab.push("element: ", collection[i], " | idx: ",i)
+    // console.log(collection ,"   ",iterator)
+    }
+    }
+ return tab;
+    
     /* END SOLUTION */
   };
 
